@@ -1,49 +1,42 @@
-console.log ("hello");
-
 // global variables
 
+var userFormEl = document.querySelector("#user-form");
+var cityInputEl = document.querySelector("#city");
+var weatherContainerEl = document.querySelector("#weather-container");
 
+console.log(userFormEl);
+console.log(cityInputEl);
+console.log(weatherContainerEl);
 
 // api.openweathermap.org/data/2.5/forecast?q={city name}&appid={your api key}
 
 // var city = "novato";
 
 // api call 
+// need to make the api call dynamic / novato is hard-coded right now
 
 var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=novato&appid=9aa19330ef7b3b00f2721d639d19782d";
-console.log(apiUrl);
 
-fetch(apiUrl).then(function(response) {
-  response.json().then(function(data) {
-    console.log(data);
-  })
-
-});
-
-
-// var getCityWeather = function(city) {
-//   // to do: make the request dynamic based on city
-//   var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=novato,ca&appid=9aa19330ef7b3b00f2721d639d19782d";
-
-  
-//   fetch(apiUrl).then(function(response) {
-//     if (response.ok) {
-//     response.json().then(function(data) {
-//       //displayWeather(data, city);
-//       console.log(data);
-//     });
-//     } else {
-//       alert("Error: " + response.statusText);
-//     }      
-//   })
-//   .catch(function(error) {
-//     alert("Unable to connet to Open Weather");
-//   });  
+// need to ask how to make the fetch call part of a function - not sure what I am doing wrong
+// var getWeather = function() {
+  fetch(apiUrl).then(function(response) {
+    response.json().then(function(data) {
+      displayWeather(data);
+      console.log(data);
+      var apiTemp = data.list.weather;
+      console.log(apiTemp);
+      varTempEl = document.createElement("p");
+      varTempEl.setAttribute(); // need to add here if I use //
+      document.body.appendChild(varTempEl); // not setting to the body, but placeholder for now //
+    });
+  });
 // };
+    
+// append the data to the page
 
 
 
+  displayWeather = function(data, city) {
 
-
-
+}
 

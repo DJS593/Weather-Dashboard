@@ -29,18 +29,28 @@
   </header>
   
   <main class="flex-row justify-space-between">
-    <div class="col-12 col-md-4">
-      <div class="card">
+    <div class="row">
+      <div class="card col">
         <h3 class="card-header text-uppercase">Search for a City:</h3>
         <form id="user-form" class="card-body">
           
-          <input name="city" id="city" type="text" autofocus="true" class="form-input" />
+          <input name="city" id="city" type="text" autofocus="true" class="form-input"/><span class="iconify" data-icon="ic:round-search" data-inline="false"></span>
           
         </form>
       </div>
+      <div id="weather-container" class="col">
+        <p id="city" class="city">City</p>
+        <p id="temp" class="temp">Temperature:</p>
+        <p id="humid" class="humid">Humidity</p>
+        <p id="wind" class="wind">Wind</p>
+        <p id="uv" class="uv">UV</p>
+      </div>
+
+      
     </div>
   
-  
+  </main>
+
   
   
   
@@ -50,6 +60,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>
   <script src="./assets/js/script.js"></script>
 </body>
 </html>
