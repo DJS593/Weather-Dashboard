@@ -26,17 +26,39 @@ var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=novato&appid=9a
       var apiTemp = data.list.weather;
       console.log(apiTemp);
       varTempEl = document.createElement("p");
-      varTempEl.setAttribute(); // need to add here if I use //
-      document.body.appendChild(varTempEl); // not setting to the body, but placeholder for now //
+     // varTempEl.setAttribute(); // need to add here if I use //
+      //document.body.appendChild(varTempEl); // not setting to the body, but placeholder for now //
     });
   });
 // };
     
+// local storage - need to keep the city names and data persistent
+
+var cityName = [];
+
+$("#user-form").on("click", "#btn-search", function(event) {
+  event.preventDefault();
+  var city = $("#city").val().trim();
+  cityName.push(city);
+  localStorage.setItem("city", JSON.stringify(cityName));
+  console.log(cityName);
+});
+
+
+
 // append the data to the page
 
 
+// current time and city
 
-  displayWeather = function(data, city) {
+  // time we can modify the below moment() and append
+  // var rightNow = moment().format("dddd MMMM Do");
+  // $("#currentDay").append(rightNow);
+  // console.log(rightNow);
+
+// Might use ths function for displaying the current conditions
+
+ displayWeather = function(data, city) {
 
 }
 
