@@ -15,12 +15,22 @@ console.log(weatherContainerEl);
 // api call 
 // need to make the api call dynamic / novato is hard-coded right now
 
-var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=novato&appid=9aa19330ef7b3b00f2721d639d19782d";
+var apiUrlForecast = "https://api.openweathermap.org/data/2.5/forecast?q=novato&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
+
+var apiUrlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=novato&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
 
 // need to ask how to make the fetch call part of a function - not sure what I am doing wrong
 // var getWeather = function() {
-  fetch(apiUrl).then(function(response) {
-    response.json().then(function(data) {
+
+fetch(apiUrlCurrent).then(function(response) {
+  response.json().then(function(data) {
+    console.log(data);
+  })
+});
+
+
+    fetch(apiUrlForecast).then(function(response) {
+      response.json().then(function(data) {
       displayWeather(data);
       console.log(data);
       var apiTemp = data.list.weather;
@@ -31,7 +41,9 @@ var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=novato&appid=9a
     });
   });
 // };
-    
+  
+
+
 // local storage - need to keep the city names and data persistent
 
 var cityName = [];
