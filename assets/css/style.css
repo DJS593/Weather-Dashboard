@@ -7,3 +7,12 @@ h1 {
   width: 100%;
 
 }
+
+.weather-container {
+  height: 300px;
+}
+
+.current {
+  height: 300px;
+  /* min-height: 300px; */
+}

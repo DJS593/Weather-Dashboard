@@ -29,21 +29,22 @@
   </header>
   
   <main class="flex-row justify-space-between">
-    <div class="row">
+    <div class="row current">
       <div class="card col">
-        <h4 class="card-header text-uppercase">Search for a City:</h3>
+        <h5 class="card-header text-uppercase">Search for a City:</h3>
         <form id="user-form" class="card-body">
           
           <input name="city" id="city" type="text" autofocus="true" class="form-input"/><button id="btn-search" class="btn btn-primary"><span class="iconify" data-icon="ic:round-search" data-inline="false"></span></button>
           
         </form>
+        <ul id="city-list" class="city-list">
+          <li id="past-city" class="past-city">this is a placeholder</li>
+        </ul>
       </div>
       <div id="weather-container" class="col">
-        <p id="city" class="city">City</p>
-        <p id="temp" class="temp">Temperature:</p>
-        <p id="humid" class="humid">Humidity</p>
-        <p id="wind" class="wind">Wind</p>
-        <p id="uv" class="uv">UV</p>
+        
+       
+        
       </div>
 
       
