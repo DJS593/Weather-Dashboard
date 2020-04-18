@@ -62,12 +62,13 @@ function myFunction() {
     var currContainerEl = document.querySelector("#weather-container");
     var currCityContainerEl = document.querySelector("#city");
     
-    var currCity = document.createElement("h2");
+    var currCity = document.querySelector("#currCity");
     // currCity.setAttribute("city", data.name);
-    currCity.classList.add("current-city");
+    //currCity.classList.add("current-city");
     currCity.textContent = data.name;
     currContainerEl.appendChild(currCity);
     //console.log("city", data.name);
+    
 
     // current date
     var currDate = document.createElement("h4");
@@ -114,15 +115,18 @@ function myFunction() {
       response.json().then(function(data) {
         console.log(data);
     
-    var currUv = document.createElement("p");
-    currUv.classList.add("current-uv");
-    currUv.textContent = "UV Index: this is a placeholder";
-    currContainerEl.appendChild(currUv);
-      //console.log("placeholder")
+      var currUv = document.createElement("p");
+      currUv.classList.add("current-uv");
+      currUv.textContent = "UV Index: this is a placeholder";
+      currContainerEl.appendChild(currUv);
+      console.log("placeholder")
 
       })})
-    })
-  });
+    
+   })
+    
+ });
+    
 };
 
 
