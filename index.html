@@ -30,25 +30,39 @@
   
   <main class="flex-row justify-space-between">
     <div class="row current">
-      <div class="card col">
+      <div class="card col-4">
         <h5 class="card-header text-uppercase">Search for a City:</h3>
         <form id="user-form" class="card-body">
           
-          <input name="city" id="city" type="text" autofocus="true" class="form-input"/><button id="btn-search" class="btn btn-primary"><span class="iconify" data-icon="ic:round-search" data-inline="false"></span></button>
+          <input name="city" id="city" type="text" autofocus="true" class="form-input"/>
+          <button onclick="myFunction()" id="btn-search" class="btn btn-primary"><span class="iconify" data-icon="ic:round-search" data-inline="false"></span></button>
           
         </form>
+        
+        <!-- list will be used to save past city searches -->
         <ul id="city-list" class="city-list">
           <li id="past-city" class="past-city">this is a placeholder</li>
         </ul>
       </div>
-      <div id="weather-container" class="col">
-        
-       
-        
-      </div>
-
       
+      <!-- empty div to append current city weather conditions -->
+      <div id="weather-container" class="col-8">  
+      
+      </div> 
     </div>
+
+    <!-- div for cards to show weatehr forecast for next five days-->
+    <div class="row">
+      <div class="card col-4">
+
+      </div>
+      <div id=forecastDay1 class="card col">Placeholder</div>
+      <div id=forecastDay2 class="card col">Placeholder</div>
+      <div id=forecastDay3 class="card col">Placeholder</div>
+      <div id=forecastDay4 class="card col">Placeholder</div>
+      <div id=forecastDay5 class="card col">Placeholder</div>
+    </div>
+
   
   </main>
 

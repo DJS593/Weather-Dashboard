@@ -3,11 +3,11 @@
 var userFormEl = document.querySelector("#user-form");
 var cityInputEl = document.querySelector("#city");
 var weatherContainerEl = document.querySelector("#weather-container");
-var priorCity = document.querySelector("#past-city");
+var priorCityEl = document.querySelector("#past-city");
 
 //var citySearch = cityInputEl.textContent;
-var citySearch =("novato");
-console.log(citySearch);
+//var citySearch =("novato");
+// console.log(citySearch);
 
 
 // console.log(userFormEl);
@@ -21,16 +21,16 @@ console.log(citySearch);
 // api call 
 // need to make the api call dynamic / novato is hard-coded right now
 
-var apiUrlForecast = "https://api.openweathermap.org/data/2.5/forecast?q=novato&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
+// var apiUrlForecast = "https://api.openweathermap.org/data/2.5/forecast?q=novato&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
 
 
-var citySearch = ("novato");
-var apiUrlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch + "&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
+// var citySearch = ("novato");
+// var apiUrlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch + "&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
 
-console.log(apiUrlCurrent);
+
 
 // use lon and lat from the other pull to grab UV
-var apiUrlUv = "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid=9aa19330ef7b3b00f2721d639d19782d";
+// var apiUrlUv = "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid=9aa19330ef7b3b00f2721d639d19782d";
 
 
 
@@ -42,12 +42,19 @@ var apiUrlUv = "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={l
 
 //var currentWeather = function () {
 
-fetch(apiUrlCurrent).then(function(response) {
+function myFunction() {
+
+  // make the city dynamic in the API call
+  var citySearch = document.getElementById("city").value;
+  //var cityLongitude = data.coord.lon; 
+  //var cityLatitude = data.coord.lat;
+  //console.log(cityLongitude, cityLatitude);
+
+  var apiUrlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch + "&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
+
+  fetch(apiUrlCurrent).then(function(response) {
   response.json().then(function(data) {
     console.log(data);
-    
-    
-    
     
     // append current weather conditions
 
@@ -67,6 +74,13 @@ fetch(apiUrlCurrent).then(function(response) {
     currDate.classList.add("current-date");
     currDate.textContent = ("("+moment().format('l')+")");
     currContainerEl.appendChild(currDate);
+
+    // current weather icon  // need to add URL for png file
+    // http://openweathermap.org/img/wn/10d@2x.png  replace code "10d" with current code
+    var currIcon = document.createElement("span");
+    currIcon.classList.add("current-icon");
+    currIcon.textContent = ("http://openweathermap.org/img/wn/"+data.weather.icon+"2x.png");
+    currContainerEl.appendChild(currIcon);
     
     // current temp
     var currTemp = document.createElement("p");
@@ -90,18 +104,29 @@ fetch(apiUrlCurrent).then(function(response) {
     currContainerEl.appendChild(currWind);
     //console.log("wind", data.wind.speed);
 
-    // current UV index
-      // this will require using long and lat to pull data
+      // current UV index
+      // requires geocode
+    var cityLongitude = data.coord.lon; 
+    var cityLatitude = data.coord.lat;
+    console.log(cityLongitude, cityLatitude);
+    var apiUrlUv = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLatitude + "&lon=" + cityLongitude + "&appid=9aa19330ef7b3b00f2721d639d19782d";
+    fetch(apiUrlCurrent).then(function(response) {
+      response.json().then(function(data) {
+        console.log(data);
+    
     var currUv = document.createElement("p");
     currUv.classList.add("current-uv");
     currUv.textContent = "UV Index: this is a placeholder";
     currContainerEl.appendChild(currUv);
-    //console.log("placeholder")
+      //console.log("placeholder")
 
-  
+      })})
+    })
+  });
+};
 
-  })
-});
+
+
 //};
 
 
@@ -140,6 +165,7 @@ $("#user-form").on("click", "#btn-search", function(event) {
   cityName.push(city);
   localStorage.setItem("city", JSON.stringify(cityName));
   console.log(cityName);
+  
 });
 
 // get item from local storage
