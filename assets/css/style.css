@@ -25,3 +25,10 @@ h1 {
   display: inline-block;
   width: 100%;
 }
+
+.five-day {
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
+  
+}
