@@ -35,8 +35,8 @@
         <form id="user-form" class="card-body">
           
           <input name="city" id="city" type="text" autofocus="true" class="form-input"/>
-          <button onclick="myFunction()" id="btn-search" class="btn btn-primary"><span class="iconify" data-icon="ic:round-search" data-inline="false"></span></button>
-          
+          <button id="btn-search" class="btn btn-primary"><span class="iconify" data-icon="ic:round-search" data-inline="false"></span></button>
+          <!-- onclick="myFunction()"-->
         </form>
         
         <!-- list will be used to save past city searches -->
@@ -47,20 +47,27 @@
       
       <!-- empty div to append current city weather conditions -->
       <div id="weather-container" class="col-8">  
-        <p id="currCity" class="currCity"></p>
+        <h3 id="currCity" class="currCity"><h4 id="currDate" class="currDate"></h4><span id="currIcon" class="currIcon"></span></h2>
+        <h5 id="currTemp" class="currTemp"></h4>
+        <h5 id="currHumidity" class="currHumidity"></h4>
+        <h5 id="currWind" class="currWind"></h4>
+        <h5 id="currUv" class="currUv"><span class="danger"></span></h4>
       </div> 
     </div>
 
     <!-- div for cards to show weatehr forecast for next five days -->
+    <div class="row col-12 label-wrap">
+      <h4 class="forecast">5-Day Forecast:</h4>
+    </div>
     <div class="row">
       <div class="card col-4">
 
       </div>
-      <div id=forecastDay1 class="card col">Placeholder</div>
-      <div id=forecastDay2 class="card col">Placeholder</div>
-      <div id=forecastDay3 class="card col">Placeholder</div>
-      <div id=forecastDay4 class="card col">Placeholder</div>
-      <div id=forecastDay5 class="card col">Placeholder</div>
+      <div id=forecastDay1 class="card col bg-primary">Placeholder</div>
+      <div id=forecastDay2 class="card col bg-primary">Placeholder</div>
+      <div id=forecastDay3 class="card col bg-primary">Placeholder</div>
+      <div id=forecastDay4 class="card col bg-primary">Placeholder</div>
+      <div id=forecastDay5 class="card col bg-primary">Placeholder</div>
     </div>
 
   

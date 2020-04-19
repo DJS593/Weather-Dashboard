@@ -16,3 +16,12 @@ h1 {
   height: 300px;
   /* min-height: 300px; */
 }
+
+.label-wrap {
+  text-align: center;
+}
+
+.forecast {
+  display: inline-block;
+  width: 100%;
+}
