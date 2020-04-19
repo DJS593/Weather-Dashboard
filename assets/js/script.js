@@ -97,7 +97,7 @@ var forecastWeather = function (event) {
 
   var cityLongitude = data.coord.lon; 
   var cityLatitude = data.coord.lat;
-  var apiUrlForecast = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLatitude + "&lon=" + cityLongitude + "&appid=9aa19330ef7b3b00f2721d639d19782d";
+  var apiUrlForecast = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLatitude + "&lon=" + cityLongitude + "&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
   console.log(data);
 
   return fetch(apiUrlForecast)
@@ -113,11 +113,12 @@ var forecastWeather = function (event) {
     forecastContainerElOne.appendChild(foreDate1);
 
     var foreIcon1 = document.querySelector("#day1Icon");
-    foreIcon1.textContent = data.daily[1].weather[0].icon;
+    urlForeIcon1 = ("http://openweathermap.org/img/wn/"+data.daily[1].weather[0].icon+"@2x.png")
+    foreIcon1.setAttribute("src", urlForeIcon1);
     forecastContainerElOne.appendChild(foreIcon1);
     
     var foreTemp1 = document.querySelector("#day1Temp");
-    foreTemp1.textContent = ("Temp: " + data.daily[1].temp.max + " F");
+    foreTemp1.textContent = ("Temp: " + Math.round(data.daily[1].temp.max) + " F");
     forecastContainerElOne.appendChild(foreTemp1);
 
     var foreHumid1 = document.querySelector("#day1Humid");
@@ -130,11 +131,12 @@ var forecastWeather = function (event) {
     forecastContainerElTwo.appendChild(foreDate2);
 
     var foreIcon2 = document.querySelector("#day2Icon");
-    foreIcon2.textContent = data.daily[2].weather[0].icon;
+    urlForeIcon2 = ("http://openweathermap.org/img/wn/"+data.daily[2].weather[0].icon+"@2x.png")
+    foreIcon2.setAttribute("src", urlForeIcon2);
     forecastContainerElTwo.appendChild(foreIcon2);
-
+    
     var foreTemp2 = document.querySelector("#day2Temp");
-    foreTemp2.textContent = ("Temp: " + data.daily[2].temp.max + " F");
+    foreTemp2.textContent = ("Temp: " + Math.round(data.daily[2].temp.max) + " F");
     forecastContainerElTwo.appendChild(foreTemp2);
 
     var foreHumid2 = document.querySelector("#day2Humid");
@@ -147,11 +149,12 @@ var forecastWeather = function (event) {
     forecastContainerElThree.appendChild(foreDate3);
 
     var foreIcon3 = document.querySelector("#day3Icon");
-    foreIcon3.textContent = data.daily[3].weather[0].icon;
+    urlForeIcon3 = ("http://openweathermap.org/img/wn/"+data.daily[3].weather[0].icon+"@2x.png")
+    foreIcon3.setAttribute("src", urlForeIcon3);
     forecastContainerElThree.appendChild(foreIcon3);
-
+    
     var foreTemp3 = document.querySelector("#day3Temp");
-    foreTemp3.textContent = ("Temp: " + data.daily[3].temp.max + " F");
+    foreTemp3.textContent = ("Temp: " + Math.round(data.daily[3].temp.max) + " F");
     forecastContainerElThree.appendChild(foreTemp3);
 
     var foreHumid3 = document.querySelector("#day3Humid");
@@ -164,11 +167,12 @@ var forecastWeather = function (event) {
     forecastContainerElFour.appendChild(foreDate4);
 
     var foreIcon4 = document.querySelector("#day4Icon");
-    foreIcon4.textContent = data.daily[4].weather[0].icon;
+    urlForeIcon4 = ("http://openweathermap.org/img/wn/"+data.daily[4].weather[0].icon+"@2x.png")
+    foreIcon4.setAttribute("src", urlForeIcon4);
     forecastContainerElFour.appendChild(foreIcon4);
 
     var foreTemp4 = document.querySelector("#day4Temp");
-    foreTemp4.textContent = ("Temp: " + data.daily[4].temp.max + " F");
+    foreTemp4.textContent = ("Temp: " + Math.round(data.daily[4].temp.max) + " F");
     forecastContainerElFour.appendChild(foreTemp4);
 
     var foreHumid4 = document.querySelector("#day4Humid");
@@ -181,11 +185,12 @@ var forecastWeather = function (event) {
     forecastContainerElFive.appendChild(foreDate5);
 
     var foreIcon5 = document.querySelector("#day5Icon");
-    foreIcon5.textContent = data.daily[5].weather[0].icon;
+    urlForeIcon5 = ("http://openweathermap.org/img/wn/"+data.daily[5].weather[0].icon+"@2x.png")
+    foreIcon5.setAttribute("src", urlForeIcon5);
     forecastContainerElFive.appendChild(foreIcon5);
 
     var foreTemp5 = document.querySelector("#day5Temp");
-    foreTemp5.textContent = ("Temp: " + data.daily[5].temp.max + " F");
+    foreTemp5.textContent = ("Temp: " + Math.round(data.daily[5].temp.max) + " F");
     forecastContainerElFive.appendChild(foreTemp5);
 
     var foreHumid5 = document.querySelector("#day5Humid");
