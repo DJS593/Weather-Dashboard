@@ -5,17 +5,15 @@ var priorCityEl = document.querySelector("#city-list");
 var buttonEl = document.querySelector("#btn-search");
 var currContainerEl = document.querySelector("#weather-container");
 var currCityContainerEl = document.querySelector("#city");
+var currUvEl = document.querySelector("#currUv");
 var forecastContainerElOne = document.querySelector("#forecastDay1");
 var forecastContainerElTwo = document.querySelector("#forecastDay2");
 var forecastContainerElThree = document.querySelector("#forecastDay3");
 var forecastContainerElFour = document.querySelector("#forecastDay4");
 var forecastContainerElFive = document.querySelector("#forecastDay5");
 
-// var apiUrlForecast = "https://api.openweathermap.org/data/2.5/forecast?q=novato&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
 
-// use lon and lat from the other pull to grab UV
-// var apiUrlUv = "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid=9aa19330ef7b3b00f2721d639d19782d";
-
+// current weather conditions
 
 var currentWeather = function(event) {
 
@@ -79,11 +77,28 @@ var currentWeather = function(event) {
     // current UV index (requires geocode)
     var currUv = document.querySelector("#currUv");
     currUv.textContent = "UV Index: " + data.current.uvi;
+    
+    // adding color code for UV index; 6.0+ = red (high), 3.0 to 6.0 = yellow (moderate), below 3.0 (low)
+    if (data.current.uvi > 6.0) {
+      currUv.classList.add("bg-danger");
+      // currUv.classList.remove("bg-success bg-warning");
+    }
+    else if (data.current.uvi < 3.0) {
+      currUv.classList.add("bg-success")
+      // currUv.classList.remove("bg-danger bg-warning");
+    }
+    else if (data.current.uvi <= 6.0 && currUv >= 3.0) {
+      currUv.classList.add("bg-warning")
+      // currUv.classList.remove("bg-danger bg-success");
+    }
+    
     currContainerEl.appendChild(currUv);
+    
   }) 
 })
 };
   
+// 5 day weather forecast
 
 var forecastWeather = function (event) {
 
@@ -201,25 +216,11 @@ var forecastWeather = function (event) {
   });
 };
 
-// create a list of past city search
-
-var pastSearch = function (event) {
-  var citySearch = document.getElementById("city").value;
-  var pastCity = document.createElement("li");
-  pastCity.classList.add("past-city");
-  pastCity.textContent = (citySearch);
-  priorCityEl.appendChild(pastCity);
-      
-
-};
 
 
+// prior cities are stored in local storage and populate the page
+// when clicked the prior city weather conditions are populated
 
-
-
-// local storage - need to keep the city names and data persistent
-
-//var cityName = [];
 var cityName = JSON.parse(localStorage.getItem("city"))||[];
 
 $("#user-form").on("click", "#btn-search", function(event) {
@@ -231,17 +232,15 @@ $("#user-form").on("click", "#btn-search", function(event) {
   
 });
 
-// get item from local storage
+// // get item from local storage and append to the page
 
-$("#city-list").html(cityName[0]);
-
-// append the data to the page
-
-
+var i;
+for (i = 0; i < cityName.length; i++) {
+$("#city-list").html(cityName[i]);
+}
 
 
 // addEventListener for the button click to begin functions
 
 buttonEl.addEventListener("click", currentWeather);
 buttonEl.addEventListener("click", forecastWeather);
-buttonEl.addEventListener("click", pastSearch);

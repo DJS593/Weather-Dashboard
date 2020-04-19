@@ -1,5 +1,5 @@
 
-
+/* relying on bootstrap for the majority of the css */
 
 
 h1 {
@@ -13,7 +13,7 @@ h1 {
 }
 
 .current {
-  height: 300px;
+  height: 400px;
   /* min-height: 300px; */
 }
 
