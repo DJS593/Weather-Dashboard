@@ -1,7 +1,7 @@
 // global variables
 
 var userFormEl = document.querySelector("#user-form");
-var priorCityEl = document.querySelector("#past-city");
+var priorCityEl = document.querySelector("#city-list");
 var buttonEl = document.querySelector("#btn-search");
 var currContainerEl = document.querySelector("#weather-container");
 var currCityContainerEl = document.querySelector("#city");
@@ -27,7 +27,7 @@ var currentWeather = function(event) {
     return response.json()
   })
   .then(function(data) {
-    
+    //console.log(data);
     // append current weather conditions
 
     // current city
@@ -42,8 +42,10 @@ var currentWeather = function(event) {
 
     // current weather icon  // need to add URL for png file
     // http://openweathermap.org/img/wn/10d@2x.png  replace code "10d" with current code
+    http://openweathermap.org/img/wn/10d@2x.png
     var currIcon = document.querySelector("#currIcon");
-    urlCurrIcon = ("http://openweathermap.org/img/wn/"+data.weather.icon+"2x.png");
+    urlCurrIcon = ("http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
+    console.log(urlCurrIcon);
     currIcon.setAttribute("src", urlCurrIcon);
     //currIcon.textContent = ("http://openweathermap.org/img/wn/"+data.weather.icon+"2x.png");
     currContainerEl.appendChild(currIcon);
@@ -67,34 +69,43 @@ var currentWeather = function(event) {
     var cityLatitude = data.coord.lat;
     var apiUrlUv = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLatitude + "&lon=" + cityLongitude + "&appid=9aa19330ef7b3b00f2721d639d19782d";
     return fetch(apiUrlUv) // this is data.apiUrlUv (changed it so the function will work)
-  }) 
+   
   .then(function(response) { 
     return response.json() 
   })
   .then(function(data) {
+    console.log(data);
     
     // current UV index (requires geocode)
     var currUv = document.querySelector("#currUv");
-    currUv.textContent = "UV Index: " + data.value;
+    currUv.textContent = "UV Index: " + data.current.uvi;
     currContainerEl.appendChild(currUv);
   }) 
- };
+})
+};
   
 
 var forecastWeather = function (event) {
 
-//var citySearch = document.getElementById("city").value;  
-//var apiUrlForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + citySearch + "&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d"; 
+  var citySearch = document.getElementById("city").value;
+  var apiUrlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch + "&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
 
-//https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={YOUR API KEY}
-var lat = ("38.1074")
-var lon = ("-122.5697")
-var apiUrlForecast = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
-
-fetch(apiUrlForecast).then(function(response) {
-  response.json()
+  fetch(apiUrlCurrent).then(function(response) {
+    return response.json()
+  })
   .then(function(data) {
-    console.log(data);
+
+  var cityLongitude = data.coord.lon; 
+  var cityLatitude = data.coord.lat;
+  var apiUrlForecast = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLatitude + "&lon=" + cityLongitude + "&appid=9aa19330ef7b3b00f2721d639d19782d";
+  console.log(data);
+
+  return fetch(apiUrlForecast)
+    .then(function(response) {
+    return response.json()
+    })
+    .then(function(data) {
+    console.log(data); 
 
     // day one forecast
     var foreDate1 = document.querySelector("#day1Date");
@@ -183,28 +194,19 @@ fetch(apiUrlForecast).then(function(response) {
 
     });
   });
+};
 
-}
+// create a list of past city search
 
-//EXAMPLE TO SHARE WITH TA TOMORROW
-// fetch(url)
-// .then(function(response) { 
-//   return response.json()
-// })
-// .then(function(data) {   
-//   // do stuff with `data`, call second `fetch`
-//   return fetch(data.anotherUrl)
-// })
-// .then(function(response) { 
-//   return response.json(); 
-// })
-// .then(function(data) {
-//   // do stuff with `data`
-// })
-// .catch(function(error) { 
-//   console.log('Requestfailed', error) 
-// });
+var pastSearch = function (event) {
+  var citySearch = document.getElementById("city").value;
+  var pastCity = document.createElement("li");
+  pastCity.classList.add("past-city");
+  pastCity.textContent = (citySearch);
+  priorCityEl.appendChild(pastCity);
+      
 
+};
 
 
 
@@ -212,7 +214,8 @@ fetch(apiUrlForecast).then(function(response) {
 
 // local storage - need to keep the city names and data persistent
 
-var cityName = [];
+//var cityName = [];
+var cityName = JSON.parse(localStorage.getItem("city"))||[];
 
 $("#user-form").on("click", "#btn-search", function(event) {
   event.preventDefault();
@@ -225,7 +228,7 @@ $("#user-form").on("click", "#btn-search", function(event) {
 
 // get item from local storage
 
-$("#past-city").val(JSON.parse(localStorage.getItem("city")));
+$("#city-list").html(cityName[0]);
 
 // append the data to the page
 
@@ -236,4 +239,4 @@ $("#past-city").val(JSON.parse(localStorage.getItem("city")));
 
 buttonEl.addEventListener("click", currentWeather);
 buttonEl.addEventListener("click", forecastWeather);
-
+buttonEl.addEventListener("click", pastSearch);
