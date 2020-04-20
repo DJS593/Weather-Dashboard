@@ -4,7 +4,7 @@ var userFormEl = document.querySelector("#user-form");
 var priorCityEl = document.querySelector("#city-list");
 var buttonEl = document.querySelector("#btn-search");
 var currContainerEl = document.querySelector("#weather-container");
-var currCityContainerEl = document.querySelector("#city");
+var currCityContainerEl = document.querySelector("#city-input");
 var currUvEl = document.querySelector("#currUv");
 var forecastContainerElOne = document.querySelector("#forecastDay1");
 var forecastContainerElTwo = document.querySelector("#forecastDay2");
@@ -16,18 +16,18 @@ var forecastContainerElFive = document.querySelector("#forecastDay5");
 // current weather conditions
 
 var currentWeather = function(event) {
+  event.preventDefault();
 
   // city parameter needs to be dynamic
-  var citySearch = document.getElementById("city").value;
+  var citySearch = document.getElementById("city-input").value;
   var apiUrlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch + "&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
 
   fetch(apiUrlCurrent).then(function(response) {
     return response.json()
   })
   .then(function(data) {
-    //console.log(data);
-    // append current weather conditions
 
+    // append current weather conditions
     // current city
     var currCity = document.querySelector("#currCity");
     currCity.textContent = data.name;
@@ -80,15 +80,16 @@ var currentWeather = function(event) {
     
     // adding color code for UV index; 6.0+ = red (high), 3.0 to 6.0 = yellow (moderate), below 3.0 (low)
     if (data.current.uvi > 6.0) {
-      currUv.classList.add("bg-danger");
+      currUv.classList = ("bg-danger");
       // currUv.classList.remove("bg-success bg-warning");
     }
     else if (data.current.uvi < 3.0) {
-      currUv.classList.add("bg-success")
+      currUv.classList = ("bg-success")
       // currUv.classList.remove("bg-danger bg-warning");
     }
-    else if (data.current.uvi <= 6.0 && currUv >= 3.0) {
-      currUv.classList.add("bg-warning")
+    // else if (data.current.uvi <= 6.0 && currUv >= 3.0) {
+      else {
+        currUv.classList = ("bg-warning")
       // currUv.classList.remove("bg-danger bg-success");
     }
     
@@ -102,7 +103,7 @@ var currentWeather = function(event) {
 
 var forecastWeather = function (event) {
 
-  var citySearch = document.getElementById("city").value;
+  var citySearch = document.getElementById("city-input").value;
   var apiUrlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch + "&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
 
   fetch(apiUrlCurrent).then(function(response) {
@@ -221,11 +222,11 @@ var forecastWeather = function (event) {
 // prior cities are stored in local storage and populate the page
 // when clicked the prior city weather conditions are populated
 
-var cityName = JSON.parse(localStorage.getItem("city"))||[];
+var cityName = JSON.parse(localStorage.getItem("city-input"))||[];
 
 $("#user-form").on("click", "#btn-search", function(event) {
   event.preventDefault();
-  var city = $("#city").val().trim();
+  var city = $("#city-input").val().trim();
   cityName.push(city);
   localStorage.setItem("city", JSON.stringify(cityName));
   console.log(cityName);

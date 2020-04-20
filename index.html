@@ -30,17 +30,18 @@
   
   <main class="flex-row justify-space-between">
     <div class="row current">
+      
+      <!-- city search form -->
       <div class="card col-4">
-        <h5 class="card-header text-uppercase">Search for a City:</h3>
+        <h3 class="card-header text-uppercase">Search for a City:</h3>
         <form id="user-form" class="card-body">
-          
-          <input name="city" id="city" type="text" autofocus="true" class="form-input"/>
-          <button id="btn-search" class="btn btn-primary"><span class="iconify" data-icon="ic:round-search" data-inline="false"></span></button>
-          <!-- onclick="myFunction()"-->
+          <label class="form-label" for="city"></label>
+          <input name="city-input" id="city-input" type="text" autofocus="true" class="form-input"/>
+          <button type="submit" id="btn-search" class="btn btn-primary"><span class="iconify" data-icon="ic:round-search" data-inline="false"></span></button>
         </form>
         
         <!-- list will be used to save past city searches -->
-        <ul id="city-list" class="city-list">
+        <ul id="city-list" id="search-container" class="city-list list-group">
           
         </ul>
       </div>
@@ -57,16 +58,16 @@
       </div> 
     </div>
 
-    <!-- div for cards to show weatehr forecast for next five days -->
-    <div class="row col-12 label-wrap">
-      <h4 class="forecast">5-Day Forecast:</h4>
-    </div>
-    <div class="row five-day">
+    <!-- divs for cards to show weather forecast for next five days -->
+    <div class="row label-wrap">
+      <h4 class="forecast">5-Day Forecast</h4>
+    </div>    
       
-      <!-- using this section to move the cards to the right -->
-      <div class="card col-4">
+      <!-- forcast card will reside in this row -->
+    <div class="row five-day">
 
-      </div>
+      <!-- empty card to push forecast cards to the right -->
+      <div class="card col-4"></div>
       
       <!-- forecast: day one -->
       <div id=forecastDay1 class="card col bg-primary text-white m-2">
