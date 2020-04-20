@@ -18,7 +18,7 @@ var forecastContainerElFive = document.querySelector("#forecastDay5");
 var currentWeather = function(event) {
   event.preventDefault();
 
-  // city parameter needs to be dynamic
+  // city search is dynamic
   var citySearch = document.getElementById("city-input").value;
   var apiUrlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch + "&units=imperial&appid=9aa19330ef7b3b00f2721d639d19782d";
 
@@ -38,9 +38,7 @@ var currentWeather = function(event) {
     currDate.textContent = ("("+moment().format('l')+")");
     currContainerEl.appendChild(currDate);
 
-    // current weather icon  // need to add URL for png file
-    // http://openweathermap.org/img/wn/10d@2x.png  replace code "10d" with current code
-    http://openweathermap.org/img/wn/10d@2x.png
+    // current weather icon  
     var currIcon = document.querySelector("#currIcon");
     urlCurrIcon = ("http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
     console.log(urlCurrIcon);
@@ -65,7 +63,11 @@ var currentWeather = function(event) {
   
     var cityLongitude = data.coord.lon; 
     var cityLatitude = data.coord.lat;
-    var apiUrlUv = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLatitude + "&lon=" + cityLongitude + "&appid=9aa19330ef7b3b00f2721d639d19782d";
+    
+    var apiUrlUv = "https://api.openweathermap.org/data/2.5/uvi?lat=" + cityLatitude + "&lon=" + cityLongitude + "&appid=9aa19330ef7b3b00f2721d639d19782d";
+    //var apiUrlUv = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLatitude + "&lon=" + cityLongitude + "&appid=9aa19330ef7b3b00f2721d639d19782d";
+    
+    
     return fetch(apiUrlUv) // this is data.apiUrlUv (changed it so the function will work)
    
   .then(function(response) { 
@@ -76,21 +78,17 @@ var currentWeather = function(event) {
     
     // current UV index (requires geocode)
     var currUv = document.querySelector("#currUv");
-    currUv.textContent = "UV Index: " + data.current.uvi;
+    currUv.textContent = "UV Index: " + data.value;
     
     // adding color code for UV index; 6.0+ = red (high), 3.0 to 6.0 = yellow (moderate), below 3.0 (low)
-    if (data.current.uvi > 6.0) {
+    if (data.value > 6.0) {
       currUv.classList = ("bg-danger");
-      // currUv.classList.remove("bg-success bg-warning");
     }
-    else if (data.current.uvi < 3.0) {
-      currUv.classList = ("bg-success")
-      // currUv.classList.remove("bg-danger bg-warning");
-    }
-    // else if (data.current.uvi <= 6.0 && currUv >= 3.0) {
-      else {
-        currUv.classList = ("bg-warning")
-      // currUv.classList.remove("bg-danger bg-success");
+    else if (data.value < 3.0) {
+      currUv.classList = ("bg-success")     
+    }   
+     else {
+        currUv.classList = ("bg-warning")     
     }
     
     currContainerEl.appendChild(currUv);
@@ -217,10 +215,7 @@ var forecastWeather = function (event) {
   });
 };
 
-
-
-// prior cities are stored in local storage and populate the page
-// when clicked the prior city weather conditions are populated
+// store city search in localStorage
 
 var cityName = JSON.parse(localStorage.getItem("city-input"))||[];
 
@@ -228,17 +223,23 @@ $("#user-form").on("click", "#btn-search", function(event) {
   event.preventDefault();
   var city = $("#city-input").val().trim();
   cityName.push(city);
-  localStorage.setItem("city", JSON.stringify(cityName));
+  localStorage.setItem("cityName", JSON.stringify(cityName));
   console.log(cityName);
   
+  $("#history").val(JSON.parse(localStorage.getItem("cityName")));
+  console.log(cityName);
+
+  // test to see if I can pull index [0] from the array 
+  //$("#history").html(cityName[0]);
+  
+  // for loop to run through the array and append to the page
+  var i;
+  for (i = 0; i < cityName.length; i++) {
+  $("#history").html(cityName[i]);
+ }
+
+
 });
-
-// // get item from local storage and append to the page
-
-var i;
-for (i = 0; i < cityName.length; i++) {
-$("#city-list").html(cityName[i]);
-}
 
 
 // addEventListener for the button click to begin functions
