@@ -54,7 +54,7 @@
         <h5 id="currTemp" class="currTemp"></h5>
         <h5 id="currHumidity" class="currHumidity"></h5>
         <h5 id="currWind" class="currWind"></h5>
-        <h5 id="currUv" class="currUv"></h5>
+        <h5 id="currUv" class="currUv"><span id="uvSpan"></span></h5>
       </div> 
     </div>
 
@@ -67,7 +67,7 @@
     <div class="row five-day">
 
       <!-- empty card to push forecast cards to the right -->
-      <div class="card col-4"></div>
+      <div class="card col-4 empty-card"></div>
       
       <!-- forecast: day one -->
       <div id=forecastDay1 class="card col bg-primary text-white m-2">
@@ -114,8 +114,8 @@
   </main>
 
   
-  
-  
+  <!-- source links -->
+  <!-- not using all of these sources, but left them in case I wish to adjust in the future -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
